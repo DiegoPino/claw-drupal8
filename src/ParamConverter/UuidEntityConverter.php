@@ -19,15 +19,27 @@ class UuidEntityConverter extends EntityConverter implements ParamConverterInter
    * @inheritDoc
    */
   public function convert($value, $definition, $name, array $defaults) {
+    var_dump('init EntityConverter');
+    var_dump($value);
+    var_dump($definition);
+    var_dump($name);
+    var_dump($defaults);
+    var_dump('end EntityConverter');
 
-    // Try to load fedora entity by UUID or ID depending on $value.
-    if (!(is_int($value) || ctype_digit((string) $value)) && Uuid::isValid($value)) {
-      $entities = $storage->loadByProperties(['uuid' => $value]);
-      $entity = ($entities) ? reset($entities) : NULL;
+    $entity_type_id = $this->getEntityTypeFromDefaults($definition, $name, $defaults);
+    if ($storage = $this->entityManager->getStorage($entity_type_id)) {
+
+      // Try to load fedora entity by UUID or ID depending on $value.
+      if (!(is_int($value) || ctype_digit((string) $value)) && Uuid::isValid($value)) {
+        $entities = $storage->loadByProperties(['uuid' => $value]);
+        $entity = ($entities) ? reset($entities) : NULL;
+
+      }
+      else {
+        $entity = parent::convert($value, $definition, $name, $defaults);
+      }
     }
-    else {
-      $entity = parent::convert($value, $definition, $name, $defaults);
-    }
+
     return $entity;
   }
 
