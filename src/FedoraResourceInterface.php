@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandoraclaw;
+namespace Drupal\islandora;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
@@ -9,7 +9,7 @@ use Drupal\user\EntityOwnerInterface;
 /**
  * Provides an interface for defining Fedora resource entities.
  *
- * @ingroup islandoraclaw
+ * @ingroup islandora
  */
 interface FedoraResourceInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
 
@@ -37,7 +37,7 @@ interface FedoraResourceInterface extends ContentEntityInterface, EntityChangedI
    * @param string $name
    *   The Fedora resource name.
    *
-   * @return \Drupal\islandoraclaw\FedoraResourceInterface
+   * @return \Drupal\islandora\FedoraResourceInterface
    *   The called Fedora resource entity.
    */
   public function setName($name);
@@ -56,7 +56,7 @@ interface FedoraResourceInterface extends ContentEntityInterface, EntityChangedI
    * @param int $timestamp
    *   The Fedora resource creation timestamp.
    *
-   * @return \Drupal\islandoraclaw\FedoraResourceInterface
+   * @return \Drupal\islandora\FedoraResourceInterface
    *   The called Fedora resource entity.
    */
   public function setCreatedTime($timestamp);
@@ -77,7 +77,7 @@ interface FedoraResourceInterface extends ContentEntityInterface, EntityChangedI
    * @param bool $published
    *   TRUE to set this Fedora resource to published, FALSE to set it to unpublished.
    *
-   * @return \Drupal\islandoraclaw\FedoraResourceInterface
+   * @return \Drupal\islandora\FedoraResourceInterface
    *   The called Fedora resource entity.
    */
   public function setPublished($published);

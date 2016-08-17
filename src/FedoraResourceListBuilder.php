@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandoraclaw;
+namespace Drupal\islandora;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
@@ -10,7 +10,7 @@ use Drupal\Core\Url;
 /**
  * Defines a class to build a listing of Fedora resource entities.
  *
- * @ingroup islandoraclaw
+ * @ingroup islandora
  */
 class FedoraResourceListBuilder extends EntityListBuilder {
 
@@ -29,7 +29,7 @@ class FedoraResourceListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\islandoraclaw\Entity\FedoraResource */
+    /* @var $entity \Drupal\islandora\Entity\FedoraResource */
     $row['id'] = $entity->id();
     $row['name'] = $this->l(
       $entity->label(),

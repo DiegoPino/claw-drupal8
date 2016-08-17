@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandoraclaw;
+namespace Drupal\islandora;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;

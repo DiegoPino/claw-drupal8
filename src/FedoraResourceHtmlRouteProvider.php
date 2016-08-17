@@ -1,9 +1,11 @@
 <?php
 
-namespace Drupal\islandoraclaw;
+namespace Drupal\islandora;
 
+use Drupal\Component\Uuid\Uuid;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
+use Drupal\Core\Entity\Routing\EntityRouteProviderInterface;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -12,7 +14,7 @@ use Symfony\Component\Routing\Route;
  * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider {
+class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider implements EntityRouteProviderInterface {
 
   /**
    * {@inheritdoc}
@@ -37,7 +39,56 @@ class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider {
       $collection->add("$entity_type_id.settings", $settings_form_route);
     }
 
+    if ($uuid_route = $this->getUuidRoute($entity_type)) {
+      $collection->add("islandora.{$entity_type_id}.uuid", $uuid_route);
+    }
+
+
+
+    $route = (new Route('/islandora/{fedora_resource}'))
+      ->addDefaults([
+        '_controller' => '\Drupal\node\Controller\NodeViewController::view',
+        '_title_callback' => '\Drupal\node\Controller\NodeViewController::title',
+      ])
+      ->setRequirement('fedora_resource', '\d+')
+      ->setRequirement('_entity_access', 'node.view');
+    $collection->add('islandora.fedora_resource.canonical', $route);
+
+    var_dump($collection);
+
+
+
+
+
     return $collection;
+  }
+
+  /** Gets the UUID route.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   The entity type.
+   *
+   * @return \Symfony\Component\Routing\Route|null
+   *   The generated route, if available.
+   */
+  protected function getUuidRoute(EntityTypeInterface $entity_type) {
+    if ($entity_type->getKey('uuid') && $entity_type->hasViewBuilderClass() && $entity_type->hasLinkTemplate('uuid')) {
+      var_dump('cool');
+      $entity_type_id = $entity_type->id();
+      $route = new Route($entity_type->getLinkTemplate('uuid'));
+      $route
+        ->addDefaults([
+          '_controller' => '\Drupal\node\Controller\NodeViewController::view',
+          '_title_callback' => '\Drupal\node\Controller\NodeViewController::title',
+        ])
+        ->setRequirement('_entity_access', $entity_type_id . '.view')
+        ->setOption('parameters', [
+          $entity_type_id => ['type' => 'entity:' . $entity_type_id],
+        ])
+        // Fetch UUID pattern from Uuid class(constant)
+        ->setRequirement($entity_type_id, '^' . Uuid::VALID_PATTERN . '$');
+      return $route;
+    }
   }
 
   /**
@@ -86,8 +137,8 @@ class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider {
       // Content entities with bundles are added via a dedicated controller.
       $route
         ->setDefaults([
-          '_controller' => 'Drupal\islandoraclaw\Controller\FedoraResourceAddController::addForm',
-          '_title_callback' => 'Drupal\islandoraclaw\Controller\FedoraResourceAddController::getAddFormTitle',
+          '_controller' => 'Drupal\islandora\Controller\FedoraResourceAddController::addForm',
+          '_title_callback' => 'Drupal\islandora\Controller\FedoraResourceAddController::getAddFormTitle',
         ])
         ->setRequirement('_entity_create_access', $entity_type_id . ':{' . $bundle_entity_type_id . '}');
       $parameters[$bundle_entity_type_id] = ['type' => 'entity:' . $bundle_entity_type_id];
@@ -113,7 +164,7 @@ class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider {
     $route = new Route("/admin/structure/{$entity_type->id()}/add");
     $route
       ->setDefaults([
-        '_controller' => 'Drupal\islandoraclaw\Controller\FedoraResourceAddController::add',
+        '_controller' => 'Drupal\islandora\Controller\FedoraResourceAddController::add',
         '_title' => "Add {$entity_type->getLabel()}",
       ])
       ->setRequirement('_entity_create_access', $entity_type->id())
@@ -136,7 +187,7 @@ class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
       $route
         ->setDefaults([
-          '_form' => 'Drupal\islandoraclaw\Form\FedoraResourceSettingsForm',
+          '_form' => 'Drupal\islandora\Form\FedoraResourceSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
         ->setRequirement('_permission', $entity_type->getAdminPermission())
