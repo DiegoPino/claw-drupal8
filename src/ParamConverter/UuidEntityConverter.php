@@ -12,6 +12,7 @@ namespace Drupal\islandora\ParamConverter;
 use Drupal\Core\ParamConverter\EntityConverter;
 use Drupal\Core\ParamConverter\ParamConverterInterface;
 use Drupal\Component\Uuid\Uuid;
+use Symfony\Component\Routing\Route;
 
 class UuidEntityConverter extends EntityConverter implements ParamConverterInterface {
   /**
