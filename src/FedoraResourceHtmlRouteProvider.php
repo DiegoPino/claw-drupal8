@@ -44,22 +44,6 @@ class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider implements 
     }
 
 
-
-    $route = (new Route('/islandora/{fedora_resource}'))
-      ->addDefaults([
-        '_controller' => '\Drupal\node\Controller\NodeViewController::view',
-        '_title_callback' => '\Drupal\node\Controller\NodeViewController::title',
-      ])
-      ->setRequirement('fedora_resource', '\d+')
-      ->setRequirement('_entity_access', 'node.view');
-    $collection->add('islandora.fedora_resource.canonical', $route);
-
-    var_dump($collection);
-
-
-
-
-
     return $collection;
   }
 
@@ -78,8 +62,8 @@ class FedoraResourceHtmlRouteProvider extends AdminHtmlRouteProvider implements 
       $route = new Route($entity_type->getLinkTemplate('uuid'));
       $route
         ->addDefaults([
-          '_controller' => '\Drupal\node\Controller\NodeViewController::view',
-          '_title_callback' => '\Drupal\node\Controller\NodeViewController::title',
+          '_entity_view' => 'fedora_resource.full',
+          '_title_callback' => '\Drupal\Core\Entity\Controller\EntityController::title',
         ])
         ->setRequirement('_entity_access', $entity_type_id . '.view')
         ->setOption('parameters', [

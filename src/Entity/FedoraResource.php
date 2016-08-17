@@ -53,7 +53,7 @@ use Drupal\user\UserInterface;
  *   common_reference_target = TRUE,
  *   permission_granularity = "bundle",
  *   links = {
- *     "canonical" = "/islandora/{fedora_resource}",
+ *     "canonical" = "/fedora_resource/{fedora_resource}",
  *     "uuid" = "/islandora_uuid/{fedora_resource}",
  *     "add-form" = "/fedora_resource/add/{fedora_resource_type}",
  *     "edit-form" = "/fedora_resource/{fedora_resource}/edit",
