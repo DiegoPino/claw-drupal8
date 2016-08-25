@@ -19,12 +19,6 @@ class UuidEntityConverter extends EntityConverter implements ParamConverterInter
    * @inheritDoc
    */
   public function convert($value, $definition, $name, array $defaults) {
-    var_dump('init EntityConverter');
-    var_dump($value);
-    var_dump($definition);
-    var_dump($name);
-    var_dump($defaults);
-    var_dump('end EntityConverter');
 
     $entity_type_id = $this->getEntityTypeFromDefaults($definition, $name, $defaults);
     if ($storage = $this->entityManager->getStorage($entity_type_id)) {
