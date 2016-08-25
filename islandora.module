@@ -68,5 +68,6 @@ function islandora_rdf_namespaces() {
     'ebucore' => 'http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#',
     'fedora' => 'http://fedora.info/definitions/v4/repository#',
     'owl' => 'http://www.w3.org/2002/07/owl#',
+    'ore' => 'http://www.openarchives.org/ore/terms/',
   );
 }
