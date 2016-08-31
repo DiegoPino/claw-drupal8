@@ -11,4 +11,5 @@ dependencies:
   - path
   - text
   - options
+  - inline_entity_form
 version: '8.x-1.x-dev'
