@@ -11,6 +11,14 @@ namespace Drupal\islandora;
 
 use Drupal\node\NodeViewBuilder;
 
+/**
+ * Class FedoraResourceViewBuilder
+ * @package Drupal\islandora
+ * view builder handler
+ * TODO this should manage how fedora_resource are build to be viewed.
+ * Right now we are just using Drupal\Core\Entity\EntityViewBuilder
+ */
 class FedoraResourceViewBuilder extends NodeViewBuilder {
+
 
 }

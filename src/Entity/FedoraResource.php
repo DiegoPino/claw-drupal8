@@ -23,8 +23,7 @@ use Drupal\user\UserInterface;
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\islandora\FedoraResourceListBuilder",
  *     "views_data" = "Drupal\islandora\Entity\FedoraResourceViewsData",
- *     "view_builder" = "Drupal\islandora\FedoraResourceViewBuilder",
- *
+ *     "inline_form" = "Drupal\islandora\Form\FedoraResourceEntityInlineForm",
  *     "form" = {
  *       "default" = "Drupal\islandora\Form\FedoraResourceForm",
  *       "add" = "Drupal\islandora\Form\FedoraResourceForm",
