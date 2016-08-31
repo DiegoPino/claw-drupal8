@@ -31,7 +31,6 @@ use Drupal\islandora\FedoraResourceTypeInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/fedora_resource_type/{fedora_resource_type}",
  *     "add-form" = "/admin/structure/fedora_resource_type/add",
  *     "edit-form" = "/admin/structure/fedora_resource_type/{fedora_resource_type}/edit",
  *     "delete-form" = "/admin/structure/fedora_resource_type/{fedora_resource_type}/delete",
